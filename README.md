@@ -1,16 +1,16 @@
-# Module 6 - PyViz Data Visualisation
+# Module 7 - SQL Data Analysis
 
-This is the page for the sixth module of the Fintech Bootcamp course, covering PyViz Data Visualisation.
+This is the page for the seventh module of the Fintech Bootcamp course, covering SQL Data Analysis using PostgreSQL.
 
 This page is a continuation of my GitHub learning structure for this course.
 
 ## Modules Notes
 
-Above you will see the *^*.ipynb file for this homework.
+Above you will see the ***.sql files and *^*.ipynb file for this homework.
 
 There is also an img folder with screenshots I've taken from the output of the challenge.
 
-Below I have compiled my analysis, with the images, to support my notebook code for this module challenge.
+Below I have compiled my analysis, with the images, to support my code for this module challenge.
 
 # Challenge - Looking for Suspicious Transactions
 
@@ -31,7 +31,7 @@ Separately to the questions ask for this challenge, there could be argument for 
 Below is my Entity Relationship Diagram showing the table structure based on the csv files provided:
 
 Transaction ERD</br>
-<img src="img/ERD.png" width=75% height=75%></br>
+<img src="img/ERD.png"></br>
 
 ## Data Analysis - Part 1
 
@@ -54,7 +54,7 @@ SELECT * FROM total_transactions
 '''
 
 This returns the card holder ID, name and total transactions made:</br>
-<img src="img/tx_per_ch.png" width=75% height=75%></br>
+<img src="img/tx_per_ch.png"></br>
 
 * __*Count the transactions that are less than $2.00 per cardholder.*__
 include view
