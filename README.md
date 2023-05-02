@@ -38,9 +38,9 @@ Transaction ERD</br>
 ### Small Transactions
 
 * __*How can you isolate (or group) the transactions of each cardholder?*__
+
 I achieved this by joining the credit_card and card_holder tables to the transaction table as shown below:
 ```
-
 CREATE VIEW total_transactions AS
 
 SELECT ch.ch_id, ch.ch_name, COUNT(tx.tx_id) AS total_transactions
