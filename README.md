@@ -57,22 +57,74 @@ This returns the card holder ID, name and total transactions made:</br>
 <img src="img/tx_per_ch.png"></br>
 
 * __*Count the transactions that are less than $2.00 per cardholder.*__
-include view
+I achieved this by altering the previous query to count transaction amount where less than $2:
+```
+CREATE VIEW total_sub2_tx AS
+
+SELECT ch.ch_id, ch.ch_name, COUNT(tx.tx_amount) AS total_sub2_tx
+	FROM transaction	AS tx
+	JOIN credit_card 	AS cc ON cc.card_no = tx.card_no
+	JOIN card_holder	AS ch ON ch.ch_id = cc.ch_id
+	WHERE tx.tx_amount < 2.00
+	GROUP BY ch.ch_id
+	ORDER BY ch.ch_id
+
+SELECT * FROM total_sub2_tx
+```
+
+This shows the same format but only for the low transactions under $2:</br>
+<img src="img/sub2_tx_per_ch.png"></br>
 
 * __*Is there any evidence to suggest that a credit card has been hacked? Explain your rationale.*__
-include view
 
+It is difficult to say at this stage. When you compare the number of sub-$2 transactions to the total number of transactions, they appear to align with the total activity on each card holders card. There isn't a standout card holder with low activity but high sub-$2 transactions when you look at the percentage per card holder. Those will lower overall transactions have low sub-$2 transactions and those with high overall transactions have a higher number of sub-$2 transactions. It would be difficult for hackers to know how much other usage is on cards to align the activity accordingly (unless they had hacked the banks accounts as well).
+
+Having said that, it is interesting to see that there are a number of small transactions of the same exact amount (as shown below):</br>
+<img src="img/sub2_tx_per_tx_amt.png"></br>
+
+This could indicate that a small selection of card holders are being targeted, making it less obvious. Or it could be a coincidence.
 
 ### Time Periods
 
 * __*What are the top 100 highest transactions made between 7:00 am and 9:00 am?*__
-include view
+The top 100 highest transactions were shown using the following query:
+```
+CREATE VIEW top_7to9_txs AS
+
+SELECT tx.tx_amount, tx.date, COUNT(tx.tx_id) AS top_7to9_txs
+	FROM transaction	AS tx
+	WHERE tx.date::time BETWEEN time '07:00:00' AND time '09:00:00'
+	GROUP BY tx.tx_amount, tx.date
+	ORDER BY tx.tx_amount desc
+	LIMIT 100
+;
+
+SELECT * FROM top_7to9_txs;
+```
+Here is a snippet of the output as it is too long to post here:</br>
+<img src="img/top_100_txs.png"></br>
 
 * __*Do you see any anomalous transactions that could be fraudulent?*__
-include view
+There are a couple of interesting transaction amounts at the top with long decimal places:</br>
+<img src="img/top_7to9_txs.png"></br>
 
 * __*Is there a higher number of fraudulent transactions made during this time frame versus the rest of the day?*__
-include view
+Running the following query, looking specifically for transactions with long decimal places:
+```
+CREATE VIEW long_dec_txs AS
+
+SELECT tx.tx_amount, tx.date, COUNT(tx.tx_id) AS long_dec_txs 
+	FROM transaction	AS tx
+	WHERE tx.tx_amount != ROUND(tx.tx_amount::numeric,2)
+	GROUP BY tx.tx_amount, tx.date
+	ORDER BY tx.date::time
+;
+
+SELECT * FROM long_dec_txs;
+```
+
+We can see that there are a number of these transactions throughout the day and on various days:</br>
+<img src="img/long_dec_txs.png"></br>
 
 * __*If you answered yes to the previous question, explain why you think there might be fraudulent transactions during this time frame.*__
 include view
