@@ -183,7 +183,7 @@ SELECT tx.m_id, m.m_name, tx.tx_amount AS all_sub2_merchant_txs
 
 SELECT * FROM all_sub2_merchant_txs
 ```
-I compared the top 5 merchants with small transactions against long decimal transactions and none matched (unfortunately!).
+I compared the top 5 merchants with small transactions against long decimal transactions and none matched (unfortunately! I really expected some to!).
 ```
 CREATE VIEW merc_long_txs AS
 
@@ -199,31 +199,6 @@ SELECT tx.tx_amount, tx.date, m.m_name AS merc_long_txs
 
 SELECT * FROM merc_long_txs;
 ```
-
-## Data Analysis - Part 2
-
-### Top Two Customers
-
-* __*Using hvPlot, create a line plot representing the time series of transactions over the course of the year for each cardholder separately.*__
-
-
-* __*Next, to better compare their patterns, create a single line plot that contains both card holders' trend data.*__
-
-
-* __*What difference do you observe between the consumption patterns? Does the difference suggest a fraudulent transaction? Explain your rationale.*__
-
-### Biggest Customer
-
-* __*Using hvPlot, create a box plot, representing the expenditure data from January 2018 to June 2018 for cardholder ID 25.*__
-
-
-* __*Are there any outliers for cardholder ID 25? How many outliers are there per month?*__
-
-
-* __*Do you notice any anomalies? Describe your observations and conclusions.*__
-
-## Challenge
-
 
 ## Back to Fintech Home
 
