@@ -18,8 +18,6 @@ Below I have compiled my analysis, with the images, to support my code for this 
 
 * [Data Warehouse & Table Structure](#data-warehouse--table-structure)
 * [Data Analysis - Part 1](#data-analysis---part-1)
-* [Data Analysis - Part 2](#data-analysis---part-2)
-* [Challenge](#challenge)
 * [Back to Fintech Home](#back-to-fintech-home)
 
 ## Data Warehouse & Table Structure
